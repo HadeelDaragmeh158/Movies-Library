@@ -1,12 +1,14 @@
 'use strict';
 
 require('dotenv').config();
+const client = new pg.Client(process.env.DB_URL);
 const memeData = require('./Movie Data/data.json');
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const server = express();
 server.use(cors());
+server.use(express.json());
 
 const PORT = process.env.PORT;
 
@@ -15,9 +17,18 @@ server.get('/', handHome)
 server.get('/favorite', handFave)
 server.get('/trending', trendingHandler)
 // server.get('', handelServerError)
+server.post('/addMovie', handaddmov)//add movie
+server.use('/getMovies', handgetmov)
 server.get('/search', searchHandler)
 server.use('*', handnotfound)
 // server.use(errorHandler)
+
+
+let numberOftrending = 5;
+let title = "Spider-Man";
+let urltrending = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.APIKEY}&language=en-US`;
+
+
 function Trending(id, title, release_date, poster_path, overview) {
     this.id = id,
         this.title = title,
@@ -30,10 +41,6 @@ function Meme(title, release_date, poster_path, overview) {
         this.release_date = release_date,
         this.overview = overview;
 }
-let numberOftrending = 5;
-let title = "Spider-Man";
-
-let urltrending = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.APIKEY}&language=en-US`;
 
 function handHome(req, res) {
     let meme = memeData.map(val => {
@@ -79,28 +86,33 @@ function searchHandler(req, res) {
         })
 }
 
+function handaddmov(req, res) {
+    const mov = req.body;
+    let datasql = `INSERT INTO movies(title,id ,releas_data,poster_path,overview)VALUES($1,$2,$3,$4,$5)RETURNING *;`;
+    let values = [mov.title || '', mov.release_date|| '', mov.poster_path|| '', mov.overview|| ''];
+    client.query(datasql, values).then(data => {
 
-function handelServerError(req, res) {
-    return res.status(500).send("Sorry, something went wrong");
-    // function getStatusCode(site){
-    //     var options = {
-    //         host: "127.0.0.1",
-    //         port: 8000,
-    //         path: site,
-    //         headers: {
-    //                     Host: site
-    //             }
-    //         };
-
-    //     var status;
-
-    //     http.get(options, function(response) {
-    //         status=response.statusCode;
-    //     });
-    //     return status;
-    // }
-
+        res.status(200).json(data.rows);
+    }).catch(error => {
+        handnotfound(req, res)
+    });
 }
+
+function handgetmov(req, res) {
+    let sql = `SELECT * FROM Movies;`;
+    client.query(datasql).then(val => {
+        response.status(200).json(data.rows)
+    }).catch(error => {
+        handelServerError(error, req, res);
+    });
+}
+
+
+function handelServerError(Error, req, res) {
+    return res.status(500).send("Sorry, something went wrong");
+}
+
+
 function handnotfound(req, res) {
     return res.status(404).send("Page not found error");
 }
