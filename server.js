@@ -21,6 +21,8 @@ server.post('/addMovie', handaddmov)//add movie
 server.use('/getMovies', handgetmov)
 server.get('/search', searchHandler)
 server.use('*', handnotfound)
+server.put('/updatemove', updateMove)
+server.put('/delete', deletemove)
 // server.use(errorHandler)
 
 
@@ -71,19 +73,19 @@ function trendingHandler(req, res) {
 
 
 function searchHandler(req, res) {
-    let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.APIKEY}&language=en-US&query=${title}}&page=2`;
+    let url1 =` https://api.themoviedb.org/3/movie/158?api_key=1d065d11dea9fa7512bfa8769fe94a87&language=en-US`;
+    let url2 = `https://api.themoviedb.org/3/movie/27?api_key=1d065d11dea9fa7512bfa8769fe94a87&language=en-US`;
 
+    // axios.get(url)
+    //     .then(result => {
+    //         let search = result.data.results.map(val => {
+    //             return new Trending(val.id, val.title, val.release_date, val.poster_path, val.overview, val.poster_path);
+    //         });
+    //         res.status(200).json(search);
+    //     }).catch(err => {
+    //         console.log("djfhl");
 
-    axios.get(url)
-        .then(result => {
-            let search = result.data.results.map(val => {
-                return new Trending(val.id, val.title, val.release_date, val.poster_path, val.overview, val.poster_path);
-            });
-            res.status(200).json(search);
-        }).catch(err => {
-            console.log("djfhl");
-
-        })
+    //     })
 }
 
 function handaddmov(req, res) {
@@ -106,7 +108,8 @@ function handgetmov(req, res) {
         handelServerError(error, req, res);
     });
 }
-
+function updateMove(req,res)
+{}
 
 function handelServerError(Error, req, res) {
     return res.status(500).send("Sorry, something went wrong");
