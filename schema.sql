@@ -1,9 +1,8 @@
-DROP TABLE IF EXISTS movie;
-CREATE TABLE IF NOT EXISTS movie(
+DROP TABLE IF EXISTS reqdb;
+CREATE TABLE IF NOT EXISTS reqdb(
     id SERIAL PRIMARY KEY ,
     title VARCHAR (255),
-    title VARCHAR (255),
-    replase_date VARCHAR (255),
+    release_date VARCHAR (255),
     poster_path VARCHAR (255),
-    overview    TEXT (4000)
+    overview   VARCHAR  (4000)
 );

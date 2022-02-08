@@ -7,11 +7,19 @@
 Add an image of your WRRC here
 
 ## Overview
+
 user send the localhost:3000 it will request and when it requst it have get method URI And it have no version because it stil local in pc, header and body, body contain all methods that will be sends to server .
 all these well send to derver that have and work at Node js and here the code will be run and serever will send it via respons.
 in response we have the staus code, here like the 200  means success and clint erroe 404 and server error 500; these sections user annot enteract with them because its backend .
 then it will send to user as website page to enteract with it .
 but in my code user can just see  some of information in the home page and welcome message in fevarite page .
+<!--the edit -->
+now the wibsite have a database to get , update  and delet the data .
+we get the data from movie web via secrit API .
+in search function, user wright the name of novie and it will git on browse 
+and if user want to delete or update the data on sql he just put the id number to do the actions 
+you can git a spacific data from my web by id and if you have any mistace in the browser it will send error message .
+
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
@@ -24,7 +32,11 @@ but in my code user can just see  some of information in the home page and welco
 5. all this in the same file and you can open this file as code .
 to open vs to see the code.
 
-6. Go to termenal and do " npm start  " then go to chrom and put " localhost: (the port that you create in listin ) (name of your page that you create )" 
+6. Go to termenal and do " npm start  " then go to chrom and put " localhost: (the port that you create in listin ) (name of your page that you create )" or you can use nodemon to start 
+
+7. you can go to browser and write localhost:3000/nameofpage 
+and you can check if the data worl in postman 
+
 
 ## Project Features
 <!-- What are the features included in you app -->
@@ -32,3 +44,5 @@ to open vs to see the code.
 - you can use the web only to show my work .
 - i can write a js code with less time than writes css and html.
 - i can use back end and server in web .
+- my app use database to save update and delete or git the data 
+- and there is no error :).
