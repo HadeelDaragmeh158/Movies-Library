@@ -13,7 +13,7 @@ server.use(express.json());
 
 const PORT = process.env.PORT;
 const client = new pg.Client({
-    connectionString: process.env.DB_URL,
+    connectionString: process.env.DATABASE_URL,
     })
 
 server.get('/', handHome)
