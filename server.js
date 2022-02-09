@@ -14,7 +14,7 @@ server.use(express.json());
 const PORT = process.env.PORT;
 const client = new pg.Client({
     connectionString: process.env.DB_URL,
-    ssl: { rejectUnauthorized: false }})
+    })
 
 server.get('/', handHome)
 server.get('/favorite', handFave)
